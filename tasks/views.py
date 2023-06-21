@@ -10,19 +10,18 @@ def home(request):
 
 
 def singup(request):
-    if request.method == 'get':
+    if request.method == 'GET':
         return render(request, 'singup.html', {
             'form': UserCreationForm
         })
     else:
-        if request.post['password1'] == request.post['password2']:
+        if request.POST['password1'] == request.POST['password2']:
             try:
-                user = User.objects.create_user(username=request.post['username'], password=request.post['password2'])
+                user = User.objects.create_user(username=request.POST['username'], password=request.POST['password1'])
                 user.save()
                 return HttpResponse('Usuario Creado Sastifactoriamente')
             except:
                 return HttpResponse('El usuario ya existe')
-        else:
-            return HttpResponse('Las contraseñas no coinsiden')
+        return HttpResponse('Las contraseñas no coinsiden')
 
 
