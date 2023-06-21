@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import hello_word
+from . views import home, singup
 
 urlpatterns = [
-    path('', hello_word, name='tasks'),
-    path('singup/', hello_word)
+    path('', home, name='home'),
+    path('singup/', singup, name='singup')
 ]
