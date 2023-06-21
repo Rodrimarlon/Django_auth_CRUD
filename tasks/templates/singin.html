@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Crear Cuenta</h1>
 
-{{error}}
+<h1>
+    login
+</h1>
 
-<form action="/singup/" method="POST">
+<form action="" method="post">
     {% csrf_token %}
     {{form.as_p}}
     <button>
-        Incribirse
+        login
     </button>
 </form>
 

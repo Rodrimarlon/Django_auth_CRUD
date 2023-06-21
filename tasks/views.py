@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
-from django.contrib.auth import login
+from django.contrib.auth import login, logout, authenticate
 
 # Create your views here.
 
@@ -33,3 +33,26 @@ def singup(request):
 
 def tasks(request):
     return render(request, 'tasks.html')
+
+def singout(request):
+    logout(request)
+    return redirect('home')
+
+def singin(request):
+    if request.method == 'get':
+        return render(request, 'singin.html',{
+            'form': AuthenticationForm
+        })
+    else:
+        print(request.POST)
+        user = authenticate(request, username=request.POST['username'], 
+            password=request.POST['password'])
+        
+        if user is None:
+            return render(request, 'singin.html',{
+                'form': AuthenticationForm,
+                'error': 'Usuario o Clave incarrecta'
+        })
+        else:
+            login(request, user)
+            return redirect('tasks')
