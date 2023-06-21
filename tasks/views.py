@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.http import HttpResponse
+from django.contrib.auth import login
 
 # Create your views here.
 
@@ -19,9 +19,17 @@ def singup(request):
             try:
                 user = User.objects.create_user(username=request.POST['username'], password=request.POST['password1'])
                 user.save()
-                return HttpResponse('Usuario Creado Sastifactoriamente')
+                login(request, user)
+                return redirect('tasks')
             except:
-                return HttpResponse('El usuario ya existe')
-        return HttpResponse('Las contraseñas no coinsiden')
+                return render(request, 'singup.html', {
+                    'form': UserCreationForm,
+                    'error': 'El usuario ya existe'
+                })
+        return render(request, 'singup.html', {
+                'form': UserCreationForm,
+                'error': 'Las contraseñas no coinsiden'
+            })
 
-
+def tasks(request):
+    return render(request, 'tasks.html')
