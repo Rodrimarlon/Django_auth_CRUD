@@ -3,4 +3,13 @@
 {% block content %}
 <h1>Tareas</h1>
 
+<ul>
+    {% for task in tasks %}
+
+    <li>{{task}}</li>
+
+{% endfor %}
+</ul>
+
+
 {% endblock %}
