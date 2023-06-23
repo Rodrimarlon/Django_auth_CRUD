@@ -1,16 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Crear Cuenta</h1>
 
-{{error}}
-
-<form action="/singup/" method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button>
-        Incribirse
-    </button>
-</form>
+<main class="container mar">
+    <div class="row">
+        <div class="col-md-5 offset-md-3 mt-5">
+            <form action="/singup/" method="POST" class="card card-body">
+                <h1>Crear Cuenta</h1>
+                {{error}}
+                {% csrf_token %}
+                {{form}}
+                <button>
+                    Incribirse
+                </button>
+            </form>
+        </div>
+    </div>
+    
+</main>
 
 {% endblock %}
